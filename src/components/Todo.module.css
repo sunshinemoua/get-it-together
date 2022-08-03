@@ -1,0 +1,21 @@
+@media screen and (min-width: 1155px) {
+  .items {
+  }
+  ul {
+    font-size: 1rem;
+    color: rgb(192, 91, 192);
+    margin: 20px;
+    border: 1px solid black;
+    border-radius: 0.15rem;
+    padding: 0.25rem 2rem;
+  }
+
+  .button-delete {
+    margin: 5px 0;
+    padding: 5px;
+    background-color: red;
+    color: white;
+    font-weight: bold;
+    border: none;
+  }
+}
