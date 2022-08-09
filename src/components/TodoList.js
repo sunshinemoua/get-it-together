@@ -29,9 +29,8 @@ const TodoList = () => {
   };
 
   return (
-    <div className={classes["todo-label"]}>
-      <h1 className={classes.header}> Todo List</h1>
-
+    <div className={classes.page}>
+      <h1 className={classes.header}> Todo List</h1>{" "}
       <label className={classes.label}>
         <input
           className={classes["input-box"]}
@@ -41,26 +40,28 @@ const TodoList = () => {
           onChange={inputHandler}
         />
       </label>
-      <label className={classes["due-date"]}>
-        Due Date:
-        <input
-          className={classes["due-date-box"]}
-          type="date"
-          placeholder="Date"
-          min="2019-01-01"
-          max="2021-31-12"
-          value={date}
-          onChange={dateHandler}
-        />
-        <button
-          className={classes["button-add"]}
-          type="submit"
-          onClick={addTodo}
-        >
-          Add
-        </button>{" "}
-      </label>
-      <Todo todos={todos} deleteTodo={deleteTodo} />
+      <div className={classes["todo-label"]}>
+        <label className={classes["due-date"]}>
+          Due Date:
+          <input
+            className={classes["due-date-box"]}
+            type="date"
+            placeholder="Date"
+            min="2019-01-01"
+            max="2021-31-12"
+            value={date}
+            onChange={dateHandler}
+          />
+          <button
+            className={classes["button-add"]}
+            type="submit"
+            onClick={addTodo}
+          >
+            Add
+          </button>{" "}
+        </label>
+        <Todo todos={todos} deleteTodo={deleteTodo} />
+      </div>
     </div>
   );
 };

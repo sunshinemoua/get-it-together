@@ -1,13 +1,12 @@
 @media screen and (min-width: 1155px) {
-  .items {
-  }
   ul {
+    list-style-type: circle;
     font-size: 1rem;
-    color: rgb(192, 91, 192);
+    font-weight: bold;
+    color: white;
     margin: 20px;
-    border: 1px solid black;
-    border-radius: 0.15rem;
     padding: 0.25rem 2rem;
+    border: 1px solid;
   }
 
   .button-delete {
