@@ -10,7 +10,11 @@ const Todo = (props) => {
     >
       <ul>
         <li className={classes.todo}>
-          {todo.input} {moment(todo.date).format("MM/DD/YYYY")}
+          {todo.input} <br />
+          <span className={classes["todo-date"]}>
+            {" "}
+            {moment(todo.date).format("MM/DD/YYYY")}
+          </span>
         </li>
       </ul>
     </div>

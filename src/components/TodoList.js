@@ -13,9 +13,14 @@ const TodoList = () => {
 
   const addTodo = (event) => {
     event.preventDefault();
-    setTodos([...todos, { input, date }]);
-    setInput("");
-    setDate("");
+
+    if (input !== "" && date !== "") {
+      setTodos([...todos, { input, date }]);
+      setInput("");
+      setDate("");
+    } else {
+      alert("Please ensure all fields are completed!");
+    }
   };
 
   const deleteTodo = (td) => {
@@ -40,26 +45,26 @@ const TodoList = () => {
           onChange={inputHandler}
         />
       </label>
+      <label className={classes["due-date"]}>
+        Due Date:
+        <input
+          className={classes["due-date-box"]}
+          type="date"
+          placeholder="Date"
+          min="2019-01-01"
+          max="2021-31-12"
+          value={date}
+          onChange={dateHandler}
+        />
+        <button
+          className={classes["button-add"]}
+          type="submit"
+          onClick={addTodo}
+        >
+          Add
+        </button>{" "}
+      </label>
       <div className={classes["todo-label"]}>
-        <label className={classes["due-date"]}>
-          Due Date:
-          <input
-            className={classes["due-date-box"]}
-            type="date"
-            placeholder="Date"
-            min="2019-01-01"
-            max="2021-31-12"
-            value={date}
-            onChange={dateHandler}
-          />
-          <button
-            className={classes["button-add"]}
-            type="submit"
-            onClick={addTodo}
-          >
-            Add
-          </button>{" "}
-        </label>
         <Todo todos={todos} deleteTodo={deleteTodo} />
       </div>
     </div>

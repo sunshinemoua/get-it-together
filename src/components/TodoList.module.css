@@ -1,68 +1,80 @@
 body {
-  background: rgb(57, 52, 52);
+  background: rgb(29, 1, 52);
+  background-image: linear-gradient(
+    to right,
+    rgb(71, 3, 159),
+    rgb(65, 9, 111),
+    rgb(75, 13, 132),
+    rgb(102, 5, 193)
+  );
+  background-repeat: no-repeat;
+  background-size: 100% 60%;
+  background-attachment: fixed;
+}
+
+.page {
+  display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: left;
+  margin: 5rem 20rem;
+  padding: 2rem;
+}
+
+.header,
+.input-box,
+.todo-label,
+.due-date,
+.due-date-box {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: white;
 }
 
 .header {
-  position: relative;
-  left: 22rem;
-  top: 9rem;
-  color: white;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 2.75rem;
   text-transform: uppercase;
-  letter-spacing: 4px;
+  letter-spacing: 0.5rem;
 }
 
 .input-box {
-  position: relative;
-  background-color: rgb(71, 70, 70);
-  color: white;
-  margin: 20rem;
+  background-color: rgb(71, 65, 90);
+
+  font-size: 1rem;
+  margin: 1rem 0;
   padding: 1rem 1.5rem;
-  height: 2rem;
+  height: 3.5rem;
   box-sizing: border-box;
   border: none;
-  font-size: 1rem;
-  width: 48%;
+  border-radius: 0.5rem;
+  width: 75%;
 }
 
 .todo-label {
-  color: white;
-  display: flex;
-  flex-direction: column;
-  margin: 12rem 22rem;
-  padding: 1.5rem;
-  background: rgb(213, 93, 239);
+  margin: 1rem 0;
+  background: rgb(71, 65, 90);
   border-radius: 0.5rem;
-}
-
-.label {
-  display: block;
-  font-size: large;
-  font-weight: bold;
+  width: 75%;
 }
 
 .button-add {
-  background-color: rgb(166, 11, 200);
+  color: white;
+  background: rgb(71, 65, 90);
   font-size: 1rem;
   font-weight: bold;
-  color: white;
   border: none;
+  border-radius: 0.25rem;
   padding: 9px 13px;
   text-decoration: none;
   text-align: center;
 }
 
 .due-date-box {
-  background-color: rgb(71, 70, 70);
-  color: white;
+  background-color: rgb(71, 65, 90);
+  font-size: 1rem;
   margin: 1rem;
   height: 2rem;
-  font-size: 1rem;
 }
 
 .due-date {
-  color: white;
   font-weight: bold;
 }
