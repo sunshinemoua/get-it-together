@@ -1,73 +1,89 @@
-import { React, useState } from "react";
-import Todo from "./Todo";
-import classes from "./TodoList.module.css";
+import React, { useEffect, useState } from "react";
+import Datepicker from "react-datepicker";
+import moment from "moment";
+import setHours from "date-fns/setHours";
+import setMinutes from "date-fns/setMinutes";
+import "react-datepicker/dist/react-datepicker.css";
 
+import Todo from "./Todo";
 const TodoList = () => {
-  const [input, setInput] = useState("");
+  const [userInput, setUserInput] = useState("");
   const [todos, setTodos] = useState([]);
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState(setHours(setMinutes(new Date(), 30), 16));
+
+  useEffect(() => {
+    const getTodos = localStorage.getItem("todos");
+    if (getTodos !== null) setTodos(JSON.parse(getTodos));
+  }, []);
 
   const inputHandler = (event) => {
-    setInput(event.target.value);
+    setUserInput(event.target.value);
   };
 
   const addTodo = (event) => {
     event.preventDefault();
-
-    if (input !== "" && date !== "") {
-      setTodos([...todos, { input, date }]);
-      setInput("");
-      setDate("");
-    } else {
-      alert("Please ensure all fields are completed!");
-    }
+    const todoItem = {
+      id: Math.random(),
+      todo: userInput,
+      date,
+    };
+    setTodos([...todos, todoItem]);
+    localStorage.setItem("todos", JSON.stringify([...todos, todoItem]));
+    setUserInput("");
+    console.log(todos);
   };
 
   const deleteTodo = (td) => {
     const filteredTodos = todos.filter((todo) => todo !== td);
     setTodos(filteredTodos);
+    localStorage.setItem("todos", JSON.stringify(filteredTodos));
+  };
+  const deleteAllTodo = () => {
+    setTodos([]);
+    localStorage.removeItem("todos");
   };
 
-  const dateHandler = (event) => {
-    let date = event.target.value;
+  const dateHandler = (date) => {
     setDate(date);
+    console.log(date);
   };
 
   return (
-    <div className={classes.page}>
-      <h1 className={classes.header}> Todo List</h1>{" "}
-      <label className={classes.label}>
+    <div>
+      <h1> Todo List </h1>{" "}
+      <label>
         <input
-          className={classes["input-box"]}
           type="text"
-          placeholder="Create a new todo..."
-          value={input}
+          placeholder="Create a new to do item..."
           onChange={inputHandler}
+          value={userInput}
         />
       </label>
-      <label className={classes["due-date"]}>
-        Due Date:
-        <input
-          className={classes["due-date-box"]}
-          type="date"
-          placeholder="Date"
-          min="2019-01-01"
-          max="2021-31-12"
-          value={date}
+      <h4>
+        Due Date
+        <Datepicker
+          selected={date}
           onChange={dateHandler}
+          name="date"
+          dateFormat="MMMM/dd/yyyy"
+          showTimeSelect
+          includeTimes={[
+            setHours(setMinutes(new Date(), 0), 17),
+            setHours(setMinutes(new Date(), 30), 18),
+            setHours(setMinutes(new Date(), 30), 19),
+            setHours(setMinutes(new Date(), 30), 17),
+          ]}
+          isClearable
+          placeholderText="Cleared!"
         />
-        <button
-          className={classes["button-add"]}
-          type="submit"
-          onClick={addTodo}
-        >
+        <button type="submit" onClick={addTodo} disabled={userInput.length < 1}>
           Add
-        </button>{" "}
-      </label>
-      <div className={classes["todo-label"]}>
-        <Todo todos={todos} deleteTodo={deleteTodo} />
-      </div>
+        </button>
+        <button onClick={deleteAllTodo}> DELETE ALL TODOS</button>
+      </h4>
+      <Todo todos={todos} deleteTodo={deleteTodo} />
     </div>
   );
 };
+
 export default TodoList;

@@ -1,20 +1,12 @@
-import classes from "./Todo.module.css";
-import moment from "moment";
+import React from "react";
 
-const Todo = (props) => {
-  const todosList = props.todos.map((todo) => (
-    <div
-      key={Math.random()}
-      className={classes.items}
-      onClick={() => props.deleteTodo(todo)}
-    >
+const Todo = ({ todos, deleteTodo }) => {
+  const todosList = todos.map((todo) => (
+    <div key={Math.random()} onClick={() => deleteTodo(todo)}>
       <ul>
-        <li className={classes.todo}>
-          {todo.input} <br />
-          <span className={classes["todo-date"]}>
-            {" "}
-            {moment(todo.date).format("MM/DD/YYYY")}
-          </span>
+        <li>
+          {todo.todo}
+          {todo.date.toString()}
         </li>
       </ul>
     </div>
@@ -22,4 +14,5 @@ const Todo = (props) => {
 
   return <div>{todosList}</div>;
 };
+
 export default Todo;
