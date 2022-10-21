@@ -9,7 +9,7 @@ import Todo from "./Todo";
 const TodoList = () => {
   const [userInput, setUserInput] = useState("");
   const [todos, setTodos] = useState([]);
-  const [date, setDate] = useState(setHours(setMinutes(new Date(), 30), 16));
+  const [date, setDate] = useState(new Date());
 
   useEffect(() => {
     const getTodos = localStorage.getItem("todos");
@@ -25,7 +25,7 @@ const TodoList = () => {
     const todoItem = {
       id: Math.random(),
       todo: userInput,
-      date,
+      date: moment(date).format(" dddd, MMMM Do YYYY, h:mm a"),
     };
     setTodos([...todos, todoItem]);
     localStorage.setItem("todos", JSON.stringify([...todos, todoItem]));
@@ -65,15 +65,9 @@ const TodoList = () => {
           selected={date}
           onChange={dateHandler}
           name="date"
-          dateFormat="MMMM/dd/yyyy"
-          showTimeSelect
-          includeTimes={[
-            setHours(setMinutes(new Date(), 0), 17),
-            setHours(setMinutes(new Date(), 30), 18),
-            setHours(setMinutes(new Date(), 30), 19),
-            setHours(setMinutes(new Date(), 30), 17),
-          ]}
-          isClearable
+          timeInputLabel="Time:"
+          dateFormat="MMMM d, yyyy h:mm aa"
+          showTimeInput
           placeholderText="Cleared!"
         />
         <button type="submit" onClick={addTodo} disabled={userInput.length < 1}>
