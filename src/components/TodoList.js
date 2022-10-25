@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Datepicker from "react-datepicker";
 import moment from "moment";
-import setHours from "date-fns/setHours";
-import setMinutes from "date-fns/setMinutes";
 import "react-datepicker/dist/react-datepicker.css";
+import classes from "./TodoList.module.css";
 
 import Todo from "./Todo";
 const TodoList = () => {
@@ -49,10 +48,14 @@ const TodoList = () => {
   };
 
   return (
-    <div>
-      <h1> Todo List </h1>{" "}
+    <div className={classes.homepage}>
+      <h2>
+        Get It
+        <b> Together </b>
+      </h2>
       <label>
         <input
+          className={classes["input-box"]}
           type="text"
           placeholder="Create a new to do item..."
           onChange={inputHandler}
@@ -68,12 +71,11 @@ const TodoList = () => {
           timeInputLabel="Time:"
           dateFormat="MMMM d, yyyy h:mm aa"
           showTimeInput
-          placeholderText="Cleared!"
         />
         <button type="submit" onClick={addTodo} disabled={userInput.length < 1}>
           Add
         </button>
-        <button onClick={deleteAllTodo}> DELETE ALL TODOS</button>
+        <button onClick={deleteAllTodo}> Clear</button>
       </h4>
       <Todo todos={todos} deleteTodo={deleteTodo} />
     </div>
