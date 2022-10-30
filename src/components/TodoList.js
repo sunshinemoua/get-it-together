@@ -4,7 +4,6 @@ import moment from "moment";
 import "react-datepicker/dist/react-datepicker.css";
 import classes from "./TodoList.module.css";
 import Todo from "./Todo";
-import CompletedTodos from "./CompletedTodos";
 
 const TodoList = () => {
   const [userInput, setUserInput] = useState("");
@@ -15,6 +14,10 @@ const TodoList = () => {
   useEffect(() => {
     const getTodos = localStorage.getItem("todos");
     if (getTodos !== null) setTodos(JSON.parse(getTodos));
+
+    const getCompletedTodos = localStorage.getItem("completed");
+    if (getCompletedTodos !== null)
+      setCompletedTodos(JSON.parse(getCompletedTodos));
   }, []);
 
   const inputHandler = (event) => {
@@ -31,26 +34,28 @@ const TodoList = () => {
     setTodos([...todos, todoItem]);
 
     localStorage.setItem("todos", JSON.stringify([...todos, todoItem]));
-    localStorage.setItem(
-      "completed",
-      JSON.stringify([...completedTodos, todoItem])
-    );
+
     setUserInput("");
     console.log(todos);
   };
 
   const deleteTodo = (td) => {
+    const filterCompletedTodos = [...completedTodos, td];
+    setCompletedTodos(filterCompletedTodos);
+    localStorage.setItem("completed", JSON.stringify(filterCompletedTodos));
+
     const filterIncompletedTodos = todos.filter((todo) => todo !== td);
     setTodos(filterIncompletedTodos);
     localStorage.setItem("todos", JSON.stringify(filterIncompletedTodos));
-
-    const filterCompletedTodos = todos.filter((todo) => todo == td);
-    setCompletedTodos(filterCompletedTodos);
-    localStorage.setItem("completed", JSON.stringify(filterCompletedTodos));
   };
   const deleteAllTodo = () => {
     setTodos([]);
     localStorage.removeItem("todos");
+  };
+
+  const deleteAllCompleteTodos = () => {
+    setCompletedTodos([]);
+    localStorage.removeItem("completed");
   };
 
   const dateHandler = (date) => {
@@ -95,10 +100,11 @@ const TodoList = () => {
         </h4>
         <Todo todos={todos} deleteTodo={deleteTodo} />
       </div>
-      <div>
-        <h2>Completed Todos</h2>
-        {/* <CompletedTodos todos={todos} completedTodos={completedTodos} /> */}
-      </div>
+      <h1>
+        Completed Todos
+        <button onClick={deleteAllCompleteTodos}> Clear Completed Todos</button>
+      </h1>
+      <Todo todos={completedTodos} deleteTodo={() => null} />
     </div>
   );
 };
