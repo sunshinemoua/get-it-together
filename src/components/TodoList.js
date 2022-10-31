@@ -58,6 +58,18 @@ const TodoList = () => {
     localStorage.removeItem("completed");
   };
 
+  const editInputHandler = (event, id) => {
+    const todosCopy = [...todos];
+    const findTodoIndex = todosCopy.findIndex((td) => td.id === id);
+    console.log(findTodoIndex);
+
+    if (todosCopy[findTodoIndex] !== null) {
+      todosCopy[findTodoIndex].todo = event.target.value;
+      setTodos(todosCopy);
+      console.log(todos);
+    }
+  };
+
   const dateHandler = (date) => {
     setDate(date);
     console.log(date);
@@ -98,13 +110,21 @@ const TodoList = () => {
           </button>
           <button onClick={deleteAllTodo}> Clear</button>
         </h4>
-        <Todo todos={todos} deleteTodo={deleteTodo} />
+        <Todo
+          todos={todos}
+          deleteTodo={deleteTodo}
+          editInputHandler={editInputHandler}
+        />
       </div>
       <h1>
         Completed Todos
         <button onClick={deleteAllCompleteTodos}> Clear Completed Todos</button>
       </h1>
-      <Todo todos={completedTodos} deleteTodo={() => null} />
+      <Todo
+        todos={completedTodos}
+        deleteTodo={() => null}
+        editInputHandler={() => null}
+      />
     </div>
   );
 };
