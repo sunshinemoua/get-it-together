@@ -2,22 +2,29 @@
   margin-top: 5rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
 }
-h2 {
+h1 {
   color: white;
   font-size: 2rem;
   text-transform: uppercase;
   font-family: Verdana, Tahoma, sans-serif;
   letter-spacing: 0.75rem;
 }
-h2 b {
+h1 b {
   color: white;
   font-size: 3rem;
   text-transform: lowercase;
   font-family: "Snell Roundhand";
   letter-spacing: 0.75rem;
+}
+h4 {
+  color: white;
+  font-size: 1rem;
+  text-transform: uppercase;
+  font-family: Verdana, Tahoma, sans-serif;
+  letter-spacing: 0.25rem;
 }
 
 .input-box {
@@ -26,6 +33,25 @@ h2 b {
   color: grey;
   padding: 0.5rem;
   margin: 0.5rem;
+  border: none;
+  border-radius: 0.25rem;
+}
+
+button {
+  background-color: rgb(105, 95, 95);
+  font-size: 0.9rem;
+  color: white;
+  margin: 0.5rem;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.5rem;
+}
+
+.datepicker {
+  width: 80%;
+  font-size: 1rem;
+  margin: 0.5rem;
+  padding: 0.5rem;
   border: none;
   border-radius: 0.25rem;
 }

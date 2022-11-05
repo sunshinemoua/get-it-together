@@ -10,6 +10,7 @@ const TodoList = () => {
   const [todos, setTodos] = useState([]);
   const [completedTodos, setCompletedTodos] = useState([]);
   const [date, setDate] = useState(new Date());
+  // const [newDate, setNewDate] = useState(new Date(todo.date));
 
   useEffect(() => {
     const getTodos = localStorage.getItem("todos");
@@ -61,12 +62,11 @@ const TodoList = () => {
   const editInputHandler = (event, id) => {
     const todosCopy = [...todos];
     const findTodoIndex = todosCopy.findIndex((td) => td.id === id);
-    console.log(findTodoIndex);
-
     if (todosCopy[findTodoIndex] !== null) {
-      todosCopy[findTodoIndex].todo = event.target.value;
+      const updatedTodo = event.target.value;
+      todosCopy[findTodoIndex].todo = updatedTodo;
       setTodos(todosCopy);
-      console.log(todos);
+      localStorage.setItem("todos", JSON.stringify(todosCopy));
     }
   };
 
@@ -75,13 +75,20 @@ const TodoList = () => {
     console.log(date);
   };
 
+  // const editDateHandler = (event, id) => {
+  //   const todosCopy = [...todos];
+  //   const findTodoIndex = todosCopy.findIndex((td) => td.date === id);
+  //   if (todosCopy[findTodoIndex] !== null) {
+  //   }
+  // };
+
   return (
     <div>
       <div className={classes.homepage}>
-        <h2>
+        <h1>
           Get It
           <b> Together </b>
-        </h2>
+        </h1>
         <label>
           <input
             className={classes["input-box"]}
@@ -94,6 +101,7 @@ const TodoList = () => {
         <h4>
           Due Date
           <Datepicker
+            className={classes.datepicker}
             selected={date}
             onChange={dateHandler}
             name="date"
@@ -112,17 +120,21 @@ const TodoList = () => {
         </h4>
         <Todo
           todos={todos}
+          // date={newDate}
           deleteTodo={deleteTodo}
+          dateHandler={dateHandler}
           editInputHandler={editInputHandler}
         />
       </div>
       <h1>
-        Completed Todos
+        Completed
         <button onClick={deleteAllCompleteTodos}> Clear Completed Todos</button>
       </h1>
       <Todo
         todos={completedTodos}
+        // date={() => null}
         deleteTodo={() => null}
+        dateHandler={() => null}
         editInputHandler={() => null}
       />
     </div>

@@ -1,21 +1,22 @@
 import React from "react";
+import classes from "./Todo.module.css";
 
-const Todo = ({ todos, deleteTodo, editInputHandler }) => {
+const Todo = ({ todos, dateHandler, deleteTodo, editInputHandler }) => {
   const todosList = todos.map((todo) => (
-    <div key={Math.random()}>
-      <form>
-        <input
-          type="text"
-          value={todo.todo}
-          onChange={(event) => editInputHandler(event, todo.id)}
-        />
-        <input
-          type="text"
-          value={todo.date.toString()}
-          onChange={(event) => editInputHandler(event, todo.id)}
-        />
-        <button onClick={() => deleteTodo(todo)}>Delete</button>
-      </form>
+    <div key={todo.id}>
+      <input
+        className={classes.list}
+        type="text"
+        value={todo.todo}
+        onChange={(event) => editInputHandler(event, todo.id)}
+      />
+      <input
+        className={classes.list}
+        type="text"
+        value={todo.date.toString()}
+        onChange={(event) => dateHandler(todo.date)}
+      />
+      <button onClick={() => deleteTodo(todo)}>Delete</button>
     </div>
   ));
 
@@ -30,3 +31,4 @@ export default Todo;
 //   {todo.date.toString()}
 // </li>
 // </ul>
+//onChange={(event) => editInputHandler(event, todo.id)}
