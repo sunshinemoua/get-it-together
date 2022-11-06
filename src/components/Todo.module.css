@@ -1,6 +1,14 @@
 /* @media screen and (min-width: 1155px) { */
 .list {
-  width: 50%;
+  width: 30%;
+  padding: 0.5rem;
+  margin: 0.5rem;
+  border: none;
+  border-radius: 0.25rem;
+}
+
+.date-list {
+  width: 51%;
   padding: 0.5rem;
   margin: 0.5rem;
   border: none;

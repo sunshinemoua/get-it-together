@@ -10,7 +10,7 @@ const TodoList = () => {
   const [todos, setTodos] = useState([]);
   const [completedTodos, setCompletedTodos] = useState([]);
   const [date, setDate] = useState(new Date());
-  // const [newDate, setNewDate] = useState(new Date(todo.date));
+  const [radioButton, setRadioButton] = useState(true);
 
   useEffect(() => {
     const getTodos = localStorage.getItem("todos");
@@ -33,11 +33,13 @@ const TodoList = () => {
       date: moment(date).format(" dddd, MMMM Do YYYY, h:mm a"),
     };
     setTodos([...todos, todoItem]);
-
     localStorage.setItem("todos", JSON.stringify([...todos, todoItem]));
-
     setUserInput("");
     console.log(todos);
+  };
+
+  const onKeyPress = (event) => {
+    if (event.key === "Enter" || event.key === "Return") addTodo();
   };
 
   const deleteTodo = (td) => {
@@ -72,15 +74,7 @@ const TodoList = () => {
 
   const dateHandler = (date) => {
     setDate(date);
-    console.log(date);
   };
-
-  // const editDateHandler = (event, id) => {
-  //   const todosCopy = [...todos];
-  //   const findTodoIndex = todosCopy.findIndex((td) => td.date === id);
-  //   if (todosCopy[findTodoIndex] !== null) {
-  //   }
-  // };
 
   return (
     <div>
@@ -112,6 +106,7 @@ const TodoList = () => {
           <button
             type="submit"
             onClick={addTodo}
+            onKeyPress={onKeyPress}
             disabled={userInput.length < 1}
           >
             Add
@@ -124,18 +119,19 @@ const TodoList = () => {
           deleteTodo={deleteTodo}
           dateHandler={dateHandler}
           editInputHandler={editInputHandler}
+          radioButton={radioButton}
         />
       </div>
       <h1>
         Completed
-        <button onClick={deleteAllCompleteTodos}> Clear Completed Todos</button>
+        <button onClick={deleteAllCompleteTodos}> Clear Completed</button>
       </h1>
       <Todo
         todos={completedTodos}
-        // date={() => null}
         deleteTodo={() => null}
         dateHandler={() => null}
         editInputHandler={() => null}
+        radioButton={!radioButton}
       />
     </div>
   );

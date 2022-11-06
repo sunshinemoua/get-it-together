@@ -1,22 +1,33 @@
 import React from "react";
 import classes from "./Todo.module.css";
 
-const Todo = ({ todos, dateHandler, deleteTodo, editInputHandler }) => {
+const Todo = ({
+  todos,
+  dateHandler,
+  deleteTodo,
+  editInputHandler,
+  radioButton,
+}) => {
   const todosList = todos.map((todo) => (
     <div key={todo.id}>
+      {radioButton ? (
+        <input type="radio" onClick={() => deleteTodo(todo)} />
+      ) : (
+        <input type="radio" disabled="true" />
+      )}
       <input
         className={classes.list}
-        type="text"
+        type=""
         value={todo.todo}
         onChange={(event) => editInputHandler(event, todo.id)}
       />
       <input
-        className={classes.list}
+        className={classes["date-list"]}
         type="text"
         value={todo.date.toString()}
         onChange={(event) => dateHandler(todo.date)}
       />
-      <button onClick={() => deleteTodo(todo)}>Delete</button>
+      {/* <button onClick={() => deleteTodo(todo)}>Delete</button> */}
     </div>
   ));
 
@@ -24,11 +35,3 @@ const Todo = ({ todos, dateHandler, deleteTodo, editInputHandler }) => {
 };
 
 export default Todo;
-
-// <ul>
-// <li>
-//   {todo.todo}
-//   {todo.date.toString()}
-// </li>
-// </ul>
-//onChange={(event) => editInputHandler(event, todo.id)}
